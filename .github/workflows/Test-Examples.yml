@@ -1,0 +1,91 @@
+name: Test-Examples   # BSP Examples
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/Test-Examples.yml  # Execute this workflow when workflow is being modified
+      - Examples/**                          # Execute this workflow when there are modifications inside Examples directory
+  push:
+    branches: [main]                         # Execute this workflow when main branch is updated
+
+jobs:
+  Test-Examples:                     # Install tools, build
+    strategy:
+      matrix:
+        test: [
+          { tool: AC6,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
+          { tool: GCC,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
+          { tool: CLANG, dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
+          { tool: IAR,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
+
+          { tool: AC6,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
+          { tool: GCC,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
+          { tool: CLANG, dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
+          { tool: IAR,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
+
+          { tool: AC6,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
+          { tool: GCC,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
+          { tool: CLANG, dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
+          { tool: IAR,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
+
+          { tool: AC6,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
+          { tool: GCC,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
+          { tool: CLANG, dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
+          { tool: IAR,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
+
+          { tool: AC6,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
+          { tool: GCC,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
+          { tool: CLANG, dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
+          { tool: IAR,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
+
+          { tool: AC6,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults },
+          { tool: GCC,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults },
+          { tool: CLANG, dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults },
+          { tool: IAR,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults }
+          ]
+
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        uses: ARM-software/cmsis-actions/vcpkg@v1
+        with:
+          config: "./.ci/vcpkg-configuration.json"
+
+      - name: Activate Arm tool license
+        uses: ARM-software/cmsis-actions/armlm@v1
+
+      - name: Initialize CMSIS pack root folder
+        run: |
+          cpackget init https://www.keil.com/pack/index.pidx
+          cpackget update-index
+
+      - name: Add local CMSIS packs
+        run: |
+          cpackget add ./ARM.CMSIS-RTX.pdsc
+
+      - name: Copy example to .ci folder
+        working-directory: ./
+        run: |
+          mkdir -p ./ci/${{ matrix.test.dir }}
+          cp -a ./${{ matrix.test.dir }}/. ./.ci/${{ matrix.test.dir }}
+
+      - name: Build Example
+        working-directory: ./.ci/${{ matrix.test.dir }}
+        run: |
+          cbuild ./${{ matrix.test.proj }}.csolution.yml --packs --toolchain ${{ matrix.test.tool }}
+
+      - name: Upload Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.test.artifact }}_${{ matrix.test.tool }}
+          path: |
+            ./.ci/${{ matrix.test.dir }}/
+            !./.ci/${{ matrix.test.dir }}/tmp/
+          retention-days: 1
