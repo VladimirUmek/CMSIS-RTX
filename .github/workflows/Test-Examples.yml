@@ -72,8 +72,8 @@ jobs:
       - name: Copy example to .ci folder
         working-directory: ./
         run: |
-          mkdir -p ./ci/${{ matrix.test.dir }}
-          cp -a ./${{ matrix.test.dir }}/. ./.ci/${{ matrix.test.dir }}
+          mkdir -p ./.ci/${{ matrix.test.dir }}
+          cp -a ./${{ matrix.test.dir }} ./.ci/${{ matrix.test.dir }}
 
       - name: Build Example
         working-directory: ./.ci/${{ matrix.test.dir }}
