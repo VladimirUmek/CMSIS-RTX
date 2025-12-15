@@ -13,35 +13,35 @@ jobs:
     strategy:
       matrix:
         test: [
-          { tool: AC6,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
-          { tool: GCC,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
-          { tool: CLANG, dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
-          { tool: IAR,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky },
+          { tool: AC6,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky, model: FVP_MPS2_Cortex-M3, out: Blinky },
+          { tool: GCC,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky, model: FVP_MPS2_Cortex-M3, out: Blinky },
+          { tool: CLANG, dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky, model: FVP_MPS2_Cortex-M3, out: Blinky },
+          { tool: IAR,   dir: Examples/Blinky,    proj: Blinky,     artifact: Blinky, model: FVP_MPS2_Cortex-M3, out: Blinky },
 
-          { tool: AC6,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
-          { tool: GCC,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
-          { tool: CLANG, dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
-          { tool: IAR,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool },
+          { tool: AC6,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool, model: FVP_MPS2_Cortex-M3, out: MemPool },
+          { tool: GCC,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool, model: FVP_MPS2_Cortex-M3, out: MemPool },
+          { tool: CLANG, dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool, model: FVP_MPS2_Cortex-M3, out: MemPool },
+          { tool: IAR,   dir: Examples/MemPool,   proj: MemPool,    artifact: MemPool, model: FVP_MPS2_Cortex-M3, out: MemPool },
 
-          { tool: AC6,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
-          { tool: GCC,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
-          { tool: CLANG, dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
-          { tool: IAR,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue },
+          { tool: AC6,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue, model: FVP_MPS2_Cortex-M3, out: MsgQueue },
+          { tool: GCC,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue, model: FVP_MPS2_Cortex-M3, out: MsgQueue },
+          { tool: CLANG, dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue, model: FVP_MPS2_Cortex-M3, out: MsgQueue },
+          { tool: IAR,   dir: Examples/MsgQueue,  proj: MsgQueue,   artifact: MsgQueue, model: FVP_MPS2_Cortex-M3, out: MsgQueue },
 
-          { tool: AC6,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
-          { tool: GCC,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
-          { tool: CLANG, dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
-          { tool: IAR,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS },
+          { tool: AC6,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: GCC,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: CLANG, dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: IAR,   dir: Examples/TrustZoneV8M/NoRTOS,       proj: NoRTOS,       artifact: TrustZoneV8M_NoRTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
 
-          { tool: AC6,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
-          { tool: GCC,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
-          { tool: CLANG, dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
-          { tool: IAR,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS },
+          { tool: AC6,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: GCC,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: CLANG, dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: IAR,   dir: Examples/TrustZoneV8M/RTOS,         proj: RTOS,         artifact: TrustZoneV8M_RTOS, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
 
-          { tool: AC6,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults },
-          { tool: GCC,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults },
-          { tool: CLANG, dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults },
-          { tool: IAR,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults }
+          { tool: AC6,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: GCC,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: CLANG, dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
+          { tool: IAR,   dir: Examples/TrustZoneV8M/RTOS_Faults,  proj: RTOS_Faults,  artifact: TrustZoneV8M_RTOS_Faults, model: FVP_MPS2_Cortex-M33, out_ns: CM33_ns, out_s: CM33_s },
           ]
 
       fail-fast: false
@@ -79,6 +79,18 @@ jobs:
         working-directory: ./.ci/${{ matrix.test.dir }}
         run: |
           cbuild ./${{ matrix.test.proj }}.csolution.yml --packs --toolchain ${{ matrix.test.tool }}
+
+      # Conditionally execute based on whether it's a TrustZone example or not
+      - name: Execute Example
+        working-directory: ./.ci/${{ matrix.test.dir }}
+        run: |
+          if [[ "${{ matrix.test.model }}" == *"FVP_MPS2_Cortex-M33"* ]]; then
+            echo "Running TrustZoneV8M example with secure and non-secure binaries"
+            ${{ matrix.test.model }} -f ./fvp_config.txt -a ./out/${{ matrix.test.out_ns }}/FVP/Debug/${{ matrix.test.out_ns }}.axf -a ./out/${{ matrix.test.out_s }}/FVP/Debug/${{ matrix.test.out_s }}.axf --simlimit 10
+          else
+            echo "Running standard example"
+            ${{ matrix.test.model }} -f ./fvp_config.txt -a ./out/${{ matrix.test.out }}/FVP/Debug/${{ matrix.test.out }}.axf --simlimit 10"
+          fi
 
       - name: Upload Artifact
         if: always()
